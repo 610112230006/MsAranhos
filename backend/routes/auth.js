@@ -1,21 +1,17 @@
+require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const db1 = require("../config/db1");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 var jwt = require("jsonwebtoken");
-const secret = "Fullstack-login";
+const secret = process.env.SECRET_KEY;
+const auth = require("../middleware/auth");
 // Select Data
-router.get("/", (req, res) => {
-  try {
-    const token = req.headers.authorization.split(" ")[1];
-    var decoded = jwt.verify(token, secret);
-    res.json({ status: "ok", decoded });
-  } catch (error) {
-    res.json({ status: "error", message: "not token" });
-  }
+router.get("/", auth, (req, res) => {
+  res.json({ status: "ok" });
 });
-router.get("/users", (req, res) => {
+router.get("/users", auth, (req, res) => {
   db1.query("select * from users", (err, rows) => {
     res.json(rows);
   });
@@ -47,6 +43,16 @@ router.post("/login", (req, res) => {
       );
     }
   );
+});
+router.get("/logout", auth, (req, res) => {
+  const authHeader = req.headers["authorization"];
+  var token = jwt.sign(authHeader, "", { expiresIn: 1 }, (logout, err) => {
+    if (logout) {
+      res.send({ msg: "You have been Logged Out" ,token});
+    } else {
+      res.send({ msg: "Error" });
+    }
+  });
 });
 router.post("/register", (req, res) => {
   bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
