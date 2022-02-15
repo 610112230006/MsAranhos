@@ -1,9 +1,10 @@
-
+# localhost
 DB1_HOST=xxx
 DB1_USER=xxx
 DB1_PASS=xxx
 DB1_NAME=xxx
 
+# Database HosXp
 DB2_HOST=xxx
 DB2_USER=xxx
 DB2_PASS=xxx
