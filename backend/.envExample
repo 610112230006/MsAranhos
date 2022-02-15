@@ -1,0 +1,14 @@
+
+DB1_HOST=xxx
+DB1_USER=xxx
+DB1_PASS=xxx
+DB1_NAME=xxx
+
+DB2_HOST=xxx
+DB2_USER=xxx
+DB2_PASS=xxx
+DB2_NAME=xxx
+
+port=3030
+
+SECRET_KEY=

@@ -1,3 +1,5 @@
-# Vuexy - Vuejs, React, HTML & Laravel Admin Dashboard Template
+#สร้าง Docker Images
+docker build -t MsAranhos:1.0 .
 
-**Vuexy – Vuejs, React, HTML & Laravel Admin Dashboard Template** – is the most developer friendly & highly customizable Admin Dashboard Template based on Bootstrap 4, Bootstrap Vue & Reactstrap.
+#รัน Docker Container
+docker run -v ${PWD}:/app -v /app/node_modules -p 1112:8080 --rm MsAranhos:1.0
