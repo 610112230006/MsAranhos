@@ -12,7 +12,7 @@ export default {
       },
       {
         title: "AUDIT-DATA",
-        route: "audit-page",
+        route: "audit",
         icon: "PieChartIcon",
         children: [
           {
@@ -33,12 +33,12 @@ export default {
           {
             title: "OPD",
             icon: "FileTextIcon",
-            // route: 'impo',
+            route: 'visit-check',
           },
           {
             title: "PP",
             icon: "FileTextIcon",
-            route: "import-rep",
+            route: "pp",
           },
           {
             title: "Error Code",
@@ -151,7 +151,7 @@ export default {
           {
             title: "OPD",
             icon: "FileTextIcon",
-            // route: 'impo',
+            route: 'visit-check',
           },
           {
             title: "PP",

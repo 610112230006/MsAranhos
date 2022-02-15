@@ -109,7 +109,7 @@ export default {
   },
   mounted() {
     this.user = JSON.parse(localStorage.getItem('userData'))
-    console.log(JSON.parse(localStorage.getItem('userData')))
+    
   },
   methods: {
     isLogout() {

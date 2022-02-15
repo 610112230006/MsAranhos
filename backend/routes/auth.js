@@ -48,31 +48,42 @@ router.get("/logout", auth, (req, res) => {
   const authHeader = req.headers["authorization"];
   var token = jwt.sign(authHeader, "", { expiresIn: 1 }, (logout, err) => {
     if (logout) {
-      res.send({ msg: "You have been Logged Out" ,token});
+      res.send({ msg: "You have been Logged Out", token });
     } else {
       res.send({ msg: "Error" });
     }
   });
 });
 router.post("/register", (req, res) => {
-  bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
-    db1.query(
-      "INSERT INTO `MsAranhos`.`users` (`username`, `password`, `firstname`, `lastname`, `phone`, `email`, `role`) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [
-        req.body.username,
-        hash,
-        req.body.firstname,
-        req.body.lastname,
-        req.body.phone,
-        req.body.email,
-        req.body.role,
-      ],
-      (err, result, fields) => {
-        if (err) return res.json(err);
-        res.json({ status: 200, message: "success" });
+  db1.query(
+    "SELECT * FROM users WHERE `username` = ?",
+    [req.body.username],
+    (err, result, fields) => {
+      if (err) return res.json({ status: 401, message: "Failed" });
+      if (result.length > 0) {
+        return res.json({ status: 300, message: "already have" });
+      } else {
+        bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
+          db1.query(
+            "INSERT INTO `MsAranhos`.`users` (`username`, `password`, `firstname`, `lastname`, `phone`, `email`, `role`) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            [
+              req.body.username,
+              hash,
+              req.body.firstname,
+              req.body.lastname,
+              req.body.phone,
+              req.body.email,
+              req.body.role,
+            ],
+            (err, result, fields) => {
+              if (err) return res.json(err);
+              res.json({ status: 200, message: "success" });
+            }
+          );
+        });
       }
-    );
-  });
+    }
+  );
 });
 
 module.exports = router;

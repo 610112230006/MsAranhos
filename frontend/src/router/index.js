@@ -58,6 +58,20 @@ const router = new VueRouter({
       },
     },
     {
+      path: "/audit/visit-check",
+      name: "visit-check",
+      component: () => import("@/views/audit/VisitCheckPage.vue"),
+      meta: {
+        pageTitle: "Audit Data",
+        breadcrumb: [
+          {
+            text: "OPD",
+            active: true,
+          },
+        ],
+      },
+    },
+    {
       path: "/audit/error-page",
       name: "error-page",
       component: () => import("@/views/audit/ErrorPage.vue"),
@@ -246,10 +260,9 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const isLoggedIn = isUserLoggedIn();
   if (to.name !== "auth-login" && !isLoggedIn) next({ name: "auth-login" });
-  if (to.name == "auth-login" && isLoggedIn) next({ name: "home" })
-  // Redirect if logged in  
-  return next()
-
+  if (to.name == "auth-login" && isLoggedIn) next({ name: "home" });
+  // Redirect if logged in
+  return next();
 });
 // ? For splash screen
 // Remove afterEach hook if you are not using splash screen

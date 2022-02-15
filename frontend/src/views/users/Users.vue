@@ -35,61 +35,111 @@
           ok-title="เพิ่มผู้ใช้งาน"
           cancel-title="ยกเลิก"
           cancel-variant="outline-secondary"
-          @ok="addUser"
+          @ok.prevent="addUser"
         >
-          <b-form>
-            <b-form-group label="บัญชีผู้ใช้" label-for="name">
-              <b-form-input
-                id="username"
-                v-model="userFrom.username"
-                placeholder="กรอกบัญชีผู้ใช้"
-              />
-            </b-form-group>
-            <b-form-group label="รหัสผ่าน" label-for="name">
-              <b-form-input
-                id="password"
-                type="password"
-                placeholder="กรอกรหัสผ่าน"
-                v-model="userFrom.password"
-              />
-            </b-form-group>
-            <b-form-group label="ชื่อ" label-for="name">
-              <b-form-input
-                id="firstname"
-                v-model="userFrom.firstname"
-                placeholder="กรอกชื่อ"
-              />
-            </b-form-group>
-            <b-form-group label="นามสกุล" label-for="name">
-              <b-form-input
-                id="lastname"
-                placeholder="กรอกนามสกุล"
-                v-model="userFrom.lastname"
-              />
-            </b-form-group>
-            <b-form-group label="อีเมล" label-for="name">
-              <b-form-input
-                id="email"
-                placeholder="กรอกอีเมล"
-                v-model="userFrom.email"
-              />
-            </b-form-group>
-            <b-form-group label="เบอร์โทรศัพท์" label-for="name">
-              <b-form-input
-                id="phone"
-                placeholder="กรอกเบอร์โทรศัพท์"
-                v-model="userFrom.phone"
-              />
-            </b-form-group>
-            <b-form-group label="ประเภทผู้ใช้งาน" label-for="vue-select">
-              <v-select
-                id="vue-select"
-                v-model="selected"
-                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                :options="option"
-              />
-            </b-form-group>
-          </b-form>
+          <validation-observer ref="simpleRules">
+            <b-form>
+              <validation-provider
+                #default="{ errors }"
+                name="บัญชีผู้ใช้"
+                rules="required"
+              >
+                <b-form-group label="บัญชีผู้ใช้" label-for="name">
+                  <b-form-input
+                    id="username"
+                    :state="errors.length > 0 ? false : null"
+                    v-model="userFrom.username"
+                    placeholder="กรอกบัญชีผู้ใช้"
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </b-form-group>
+              </validation-provider>
+              <validation-provider
+                #default="{ errors }"
+                name="รหัสผ่าน"
+                rules="required"
+              >
+                <b-form-group label="รหัสผ่าน" label-for="name">
+                  <b-form-input
+                    :state="errors.length > 0 ? false : null"
+                    id="password"
+                    placeholder="กรอกรหัสผ่าน"
+                    v-model="userFrom.password"
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </b-form-group>
+              </validation-provider>
+              <validation-provider
+                #default="{ errors }"
+                name="ชื่อ"
+                rules="required"
+              >
+                <b-form-group label="ชื่อ" label-for="name">
+                  <b-form-input
+                    :state="errors.length > 0 ? false : null"
+                    id="firstname"
+                    v-model="userFrom.firstname"
+                    placeholder="กรอกชื่อ"
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </b-form-group>
+              </validation-provider>
+              <validation-provider
+                #default="{ errors }"
+                name="นามสกุล"
+                rules="required"
+              >
+                <b-form-group label="นามสกุล" label-for="name">
+                  <b-form-input
+                    :state="errors.length > 0 ? false : null"
+                    id="lastname"
+                    placeholder="กรอกนามสกุล"
+                    v-model="userFrom.lastname"
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </b-form-group>
+              </validation-provider>
+              <validation-provider
+                #default="{ errors }"
+                name="อีเมล"
+                rules="required"
+              >
+                <b-form-group label="อีเมล" label-for="name">
+                  <b-form-input
+                    :state="errors.length > 0 ? false : null"
+                    id="email"
+                    placeholder="กรอกอีเมล"
+                    v-model="userFrom.email"
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </b-form-group>
+              </validation-provider>
+              <validation-provider
+                #default="{ errors }"
+                name="เบอร์โทรศัพท์"
+                rules="required"
+              >
+                <b-form-group label="เบอร์โทรศัพท์" label-for="name">
+                  <b-form-input
+                    :state="errors.length > 0 ? false : null"
+                    id="phone"
+                    placeholder="กรอกเบอร์โทรศัพท์"
+                    v-model="userFrom.phone"
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </b-form-group>
+              </validation-provider>
+
+              <b-form-group label="ประเภทผู้ใช้งาน" label-for="vue-select">
+                <v-select
+                  id="vue-select"
+                  v-model="selected"
+                  :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                  :options="option"
+                />
+              </b-form-group>
+            </b-form>
+          </validation-observer>
         </b-modal>
       </div>
     </b-card-body>
@@ -110,9 +160,9 @@
       :filter-included-fields="filterOn"
       @filtered="onFiltered"
     >
-      <template #cell(status)="data">
-        <b-badge :variant="status[1][data.value]">
-          {{ status[0][data.value] }}
+     <template #cell(role)="data">
+        <b-badge :variant="[data.value === 'User' ? 'success' : 'warning']">
+          {{data.value}}
         </b-badge>
       </template>
       <!-- Column: Actions -->
@@ -121,7 +171,6 @@
           variant="link"
           no-caret
           :right="$store.state.appConfig.isRTL"
-          
         >
           <template #button-content>
             <feather-icon
@@ -198,6 +247,7 @@
 <script>
 import BCardCode from "@core/components/b-card-code/BCardCode.vue";
 import ModelAddUser from "./component/ModelAddUser.vue";
+import { ValidationProvider, ValidationObserver } from "vee-validate";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import {
@@ -219,6 +269,8 @@ import {
   BDropdownItem,
 } from "bootstrap-vue";
 import { codeKitchenSink } from "./code";
+import useJwt from "@/auth/jwt/useJwt";
+import { required, email } from "@validations";
 
 export default {
   components: {
@@ -241,6 +293,8 @@ export default {
     vSelect,
     BDropdown,
     BDropdownItem,
+    ValidationProvider,
+    ValidationObserver,
   },
   data() {
     return {
@@ -277,6 +331,7 @@ export default {
         { key: "firstname", label: "ชื่อจริง", sortable: true },
         { key: "lastname", label: "นามสกุล", sortable: true },
         "email",
+        { key: "role", label: "สถานะ", sortable: true },
         { key: "actions" },
         // { key: "status", label: "Status", sortable: true },
       ],
@@ -285,18 +340,12 @@ export default {
       /* eslint-disable global-require */
       status: [
         {
-          1: "Current",
-          2: "Professional",
-          3: "Rejected",
-          4: "Resigned",
-          5: "Applied",
+          1: "User",
+          2: "Admin",
         },
         {
-          1: "light-primary",
-          2: "light-success",
-          3: "light-danger",
-          4: "light-warning",
-          5: "light-info",
+          1: "success",
+          2: "warning",
         },
       ],
       codeKitchenSink,
@@ -316,16 +365,26 @@ export default {
   },
   methods: {
     addUser() {
-      var data = { ...this.userFrom, role: this.selected };
-      this.$http.post("api/v1/auth/register", data).then((res) => {
-        this.getUser();
+      this.$refs.simpleRules.validate().then((success) => {
+        if (success) {
+          var data = { ...this.userFrom, role: this.selected };
+          this.$http.post("api/v1/auth/register", data).then((res) => {
+            this.getUser();
+          });
+        }
       });
     },
     getUser() {
-      this.$http.get("api/v1/auth/users").then((res) => {
-        this.items = res.data;
-        this.totalRows = res.data.length;
-      });
+      this.$http
+        .get("api/v1/auth/users", {
+          headers: {
+            Authorization: `Bearer ${useJwt.getToken()}`,
+          },
+        })
+        .then((res) => {
+          this.items = res.data;
+          this.totalRows = res.data.length;
+        });
     },
     info(item, index, button) {
       this.infoModal.title = `Row index: ${index}`;

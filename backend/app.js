@@ -3,12 +3,15 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
+const fileUpload = require('express-fileupload');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 
 var app = express();
+
+
 
 app.use(cors())
 app.use(logger('dev'));
@@ -17,11 +20,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// enable files upload
+app.use(fileUpload({
+    createParentPath: true
+}));
+
 app.use('/', indexRouter);
-// app.use('/users', usersRouter);
+app.use('/users', usersRouter);
 // app.use("/api/v1/covid/", require("./routes/covid"))
 // app.use("/api/v1/budgets/", require("./routes/budgets"))
-// app.use("/api/v1/q4u/", require("./routes/q4u"))
+app.use("/api/v1/audit/", require("./routes/audit.js"))
 app.use("/api/v1/auth/", require("./routes/auth.js"))
+app.use("/api/v1/import/", require("./routes/import.js"))
 
 module.exports = app;

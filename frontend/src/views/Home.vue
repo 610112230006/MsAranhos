@@ -46,7 +46,7 @@ mounted() {
       .get("api/v1/q4u/service_points")
       .then(function (response) {
         // this.db = response.data;
-        console.log(response.data);
+        
       })
       .catch(function (error) {
         // handle error
