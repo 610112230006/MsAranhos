@@ -8,9 +8,11 @@ const db1 = mysql.createPool({
   user: process.env.DB1_USER,
   password: process.env.DB1_PASS,
   database: process.env.DB1_NAME,
+  port: process.env.DB1_PORT,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
 });
+
 
 module.exports = db1;

@@ -171,6 +171,11 @@ export default {
         icon: "ShieldIcon",
         children: [
           {
+            title: "อยู่บ้าน",
+            icon: "PackageIcon",
+            route: "personal-account-page",
+          },
+          {
             title: "Ward",
             icon: "PackageIcon",
             route: "covid19-page",

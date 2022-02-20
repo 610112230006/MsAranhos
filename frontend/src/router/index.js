@@ -233,6 +233,14 @@ const router = new VueRouter({
         pageTitle: "จัดการบัญชีผู้ใช้",
       },
     },
+    {
+      path: "/users",
+      name: "users",
+      component: () => import("@/views/users/Users.vue"),
+      meta: {
+        pageTitle: "จัดการบัญชีผู้ใช้",
+      },
+    },
 
     {
       path: "/login",

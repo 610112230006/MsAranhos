@@ -3,7 +3,7 @@ const router = express.Router();
 // const db1 = require('../db_config')
 
 const { QueryTypes } = require("sequelize");
-// const db2 = require("../db_config");
+const db2 = require("../db_config");
 
 router.get("/", async (req, res) => {
   res.send("hello MM")
