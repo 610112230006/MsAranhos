@@ -7,6 +7,7 @@ const axiosIns = axios.create({
   // You can add your headers here
   // ================================
   baseURL:'http://localhost:3000',
+  // baseURL:'http://157.245.56.48:2000',
   // timeout: 1000,
   // headers: {'X-Custom-Header': 'foobar'}
 })
