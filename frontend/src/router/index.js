@@ -234,11 +234,35 @@ const router = new VueRouter({
       },
     },
     {
-      path: "/users",
-      name: "users",
-      component: () => import("@/views/users/Users.vue"),
+      path: "/covid19-personal-account",
+      name: "covid19-personal-account",
+      component: () => import("@/views/covid19/personal/HiHome.vue"),
       meta: {
-        pageTitle: "จัดการบัญชีผู้ใช้",
+        pageTitle: "จัดการคนไข้ Covid19",
+      },
+    },
+    {
+      path: "/covid19-hi-detail/:id",
+      name: "covid19-personal-account",
+      component: () => import("@/views/covid19/personal/DetailHi.vue"),
+      meta: {
+        pageTitle: "จัดการคนไข้ Covid19",
+      },
+    },
+    {
+      path: "/covid19-personal-add",
+      name: "covid19-personal-add",
+      component: () => import("@/views/covid19/personal/AddPersonal.vue"),
+      meta: {
+        pageTitle: "จัดการคนไข้ Covid19",
+      },
+    },
+    {
+      path: "/covid19-edit-hi/:id",
+      name: "covid19-personal-add",
+      component: () => import("@/views/covid19/personal/EditHi.vue"),
+      meta: {
+        pageTitle: "จัดการคนไข้ Covid19",
       },
     },
 

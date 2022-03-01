@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-// const db1 = require('../db_config')
-// const db2 = require('../db_config')
-const mysql = require('mysql');
+const db1 = require('../config/db1')
+const db2 = require('../config/db2')
+
 
 
 

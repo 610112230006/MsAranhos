@@ -166,14 +166,13 @@ export default {
         ],
       },
       {
-        title: "COVID-19",
-        route: "covid19-page",
+        title: "COVID-19",        
         icon: "ShieldIcon",
         children: [
           {
-            title: "อยู่บ้าน",
+            title: "HI",
             icon: "PackageIcon",
-            route: "personal-account-page",
+            route: "covid19-personal-account",
           },
           {
             title: "Ward",

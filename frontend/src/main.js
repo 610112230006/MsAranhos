@@ -24,6 +24,7 @@ localize("th")
 Vue.use(ToastPlugin)
 Vue.use(ModalPlugin)
 
+
 // Composition API
 Vue.use(VueCompositionAPI)
 

@@ -369,6 +369,7 @@ export default {
         if (success) {
           var data = { ...this.userFrom, role: this.selected };
           this.$http.post("api/v1/auth/register", data).then((res) => {
+            
             this.getUser();
           });
         }
